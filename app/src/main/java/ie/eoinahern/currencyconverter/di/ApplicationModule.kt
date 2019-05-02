@@ -11,9 +11,8 @@ class ApplicationModule(val app: Application) {
     @Singleton
     fun getContext(): Context = app
 
-
     @Provides
     @Singleton
-    fun getKey() = String
+    fun getKey(): String = "123455678"
 
 }
