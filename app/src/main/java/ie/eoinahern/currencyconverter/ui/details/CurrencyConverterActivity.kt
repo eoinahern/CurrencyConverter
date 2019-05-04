@@ -10,7 +10,6 @@ import javax.inject.Inject
 
 class CurrencyConverterActivity : BaseActivity() {
 
-
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -20,12 +19,8 @@ class CurrencyConverterActivity : BaseActivity() {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CurrencyConverterViewModel::class.java)
-        viewModel.doSHite()
-    }
-
-    override fun inject() {
-        //not implemented
+        viewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(CurrencyConverterViewModel::class.java)
     }
 
     override fun getLayout(): Int = R.layout.activity_currency_converter

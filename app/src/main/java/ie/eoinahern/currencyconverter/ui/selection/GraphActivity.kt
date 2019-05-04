@@ -20,12 +20,8 @@ class GraphActivity : BaseActivity() {
         val viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(GraphActivtyViewModel::class.java)
 
-        viewModel.doStuff()
     }
 
-    override fun inject() {
-
-    }
 
     override fun getLayout(): Int = R.layout.activity_graph
 }
