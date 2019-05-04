@@ -23,6 +23,10 @@ android {
 }
 
 dependencies {
+
+    def lifecycle_version = "2.0.0"
+
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
@@ -31,6 +35,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
 
     implementation "com.google.dagger:dagger-android:2.22.1"
     implementation "com.google.dagger:dagger-android-support:2.22.1"
@@ -41,7 +46,13 @@ dependencies {
     compileOnly "javax.inject:javax.inject:1"
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation "com.squareup.moshi:moshi:1.8.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.8.0"
 
-    //hello
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.5.0'
+
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    implementation "android.arch.lifecycle:viewmodel:$lifecycle_version"
 
 }

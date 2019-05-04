@@ -11,17 +11,18 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".ui.details.CurrencyConverterActivity">
-        </activity>
-        <activity android:name=".ui.selection.GraphActivity">
-        </activity>
-        <activity android:name=".ui.base.BaseActivity">
-        </activity>
-        <activity android:name=".ui.splash.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.selection.GraphActivity">
+
+        </activity>
+        <activity android:name=".ui.base.BaseActivity">
+        </activity>
+        <activity android:name=".ui.splash.MainActivity">
         </activity>
     </application>
 

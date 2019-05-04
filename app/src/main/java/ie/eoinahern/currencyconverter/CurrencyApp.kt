@@ -4,19 +4,22 @@ import android.app.Activity
 import android.app.Application
 import dagger.android.AndroidInjector
 import dagger.android.HasActivityInjector
-import ie.eoinahern.currencyconverter.di.ApplicationComponent
-import ie.eoinahern.currencyconverter.di.ApplicationModule
+import dagger.android.DispatchingAndroidInjector
+import ie.eoinahern.currencyconverter.di.component.DaggerApplicationComponent
+import javax.inject.Inject
 
-class CurrencyApp : Application() {
 
-    private lateinit var appComponent: ApplicationComponent
+class CurrencyApp : Application(), HasActivityInjector {
+
+    @Inject
+    lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()
-
-        appComponent = DaggerApplicationComponent.builder().applicationModule(ApplicationModule(this))
-            .build()
+        DaggerApplicationComponent.builder().application(this).build().inject(this)
     }
 
-    fun getAppCOmponent(): ApplicationComponent = appComponent
+    override fun activityInjector(): AndroidInjector<Activity> {
+        return activityDispatchingAndroidInjector
+    }
 }
