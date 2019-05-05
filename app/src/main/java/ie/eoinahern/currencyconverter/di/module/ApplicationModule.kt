@@ -6,7 +6,12 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import ie.eoinahern.currencyconverter.data.network.MyApi
+import ie.eoinahern.currencyconverter.tools.FIXER_KEY
+import ie.eoinahern.currencyconverter.tools.FIXER_KEY_NAME
+import ie.eoinahern.currencyconverter.tools.FIXER_URL
 import okhttp3.HttpUrl
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -22,22 +27,31 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun getKey(): String = "50a76bbf05feab69b722f45e51e71dee"
-
-    @Provides
-    @Singleton
-    fun getAPiEndpoint() = HttpUrl.parse("http://data.fixer.io/api/")
+    fun getAPiEndpoint() = HttpUrl.parse(FIXER_URL)
 
     @Provides
     @Singleton
     fun getMoshi(): Moshi = Moshi.Builder().build()
 
+
+    @Provides
+    fun interceptor(key: String): OkHttpClient {
+        val interceptor = Interceptor { chain ->
+            val initialRequest = chain.request()
+            val url = chain.request().url().newBuilder().addQueryParameter(FIXER_KEY_NAME, FIXER_KEY).build()
+            val newRequest = initialRequest.newBuilder().url(url).build()
+            chain.proceed(newRequest)
+        }
+
+        return OkHttpClient.Builder().addInterceptor(interceptor).build()
+    }
+
     @Provides
     @Singleton
-    fun getApi(key: String, url: HttpUrl, moshi: Moshi): MyApi {
-
+    fun getApi(url: HttpUrl, moshi: Moshi, client: OkHttpClient): MyApi {
         return Retrofit.Builder()
             .baseUrl(url)
+            .client(client)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build().create(MyApi::class.java)
     }
