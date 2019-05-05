@@ -8,8 +8,6 @@ import javax.inject.Singleton
 
 
 /**
- *
- *
  * create different implementations of CurrencyDataStore
  */
 
