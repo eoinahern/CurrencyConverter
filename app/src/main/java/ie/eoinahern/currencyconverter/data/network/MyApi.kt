@@ -10,7 +10,6 @@ interface MyApi {
     @GET("latest")
     fun getData(): Call<LatestCurrencies>
 
-
     @GET("timeseries")
     fun getTimeSeries(
         @Query("start_date") start: String, @Query("end_date") end: String,

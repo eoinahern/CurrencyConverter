@@ -2,11 +2,14 @@ package ie.eoinahern.currencyconverter.di.module
 
 import android.app.Application
 import android.content.Context
+import androidx.room.Room
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
+import ie.eoinahern.currencyconverter.data.database.CurrencyDatabase
 import ie.eoinahern.currencyconverter.data.network.MyApi
+import ie.eoinahern.currencyconverter.tools.DATABASE_NAME
 import ie.eoinahern.currencyconverter.tools.FIXER_KEY
 import ie.eoinahern.currencyconverter.tools.FIXER_KEY_NAME
 import ie.eoinahern.currencyconverter.tools.FIXER_URL
@@ -55,5 +58,12 @@ class ApplicationModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
             .build().create(MyApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun getDatabase(context: Context): CurrencyDatabase {
+        return Room.databaseBuilder(context, CurrencyDatabase::class.java, DATABASE_NAME)
+            .build()
     }
 }
