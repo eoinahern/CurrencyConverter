@@ -2,15 +2,13 @@ package ie.eoinahern.currencyconverter.di.module
 
 import android.app.Application
 import android.content.Context
-import androidx.lifecycle.ViewModel
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
-import ie.eoinahern.currencyconverter.data.MyApi
+import ie.eoinahern.currencyconverter.data.network.MyApi
 import okhttp3.HttpUrl
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Provider
 import javax.inject.Singleton
 
 @Module

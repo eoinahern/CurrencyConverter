@@ -1,4 +1,4 @@
-package ie.eoinahern.currencyconverter.data
+package ie.eoinahern.currencyconverter.data.network
 
 import retrofit2.http.GET
 
