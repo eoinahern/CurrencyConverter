@@ -1,9 +1,8 @@
 package ie.eoinahern.currencyconverter.data.repository
 
-import javax.inject.Inject
+import ie.eoinahern.currencyconverter.data.database.CurrencyDAO
 
 
-class CacheDataStore @Inject constructor() : CurrencyDataStore {
-
+class CacheDataStore constructor(private val currencyDAO: CurrencyDAO) : CurrencyDataStore {
 
 }

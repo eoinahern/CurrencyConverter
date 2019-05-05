@@ -1,8 +1,8 @@
 package ie.eoinahern.currencyconverter.data.repository
 
-import javax.inject.Inject
+import ie.eoinahern.currencyconverter.data.network.MyApi
 
 
-class NetworkDataStore @Inject constructor() : CurrencyDataStore {
+class NetworkDataStore constructor(private val api: MyApi) : CurrencyDataStore {
 
 }

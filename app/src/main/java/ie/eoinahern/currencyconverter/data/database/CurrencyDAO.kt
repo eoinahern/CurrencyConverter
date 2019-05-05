@@ -13,4 +13,8 @@ interface CurrencyDAO {
 
     @Query("DELETE from DomainCurrency")
     fun deleteAll()
+
+
+    @Query("SELECT COUNT(*) FROM DomainCurrency")
+    fun countAll(): Int
 }

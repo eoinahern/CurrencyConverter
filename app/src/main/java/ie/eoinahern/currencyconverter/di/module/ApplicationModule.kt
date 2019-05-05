@@ -2,11 +2,14 @@ package ie.eoinahern.currencyconverter.di.module
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import androidx.room.Room
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
+import ie.eoinahern.currencyconverter.data.database.CurrencyDAO
 import ie.eoinahern.currencyconverter.data.database.CurrencyDatabase
 import ie.eoinahern.currencyconverter.data.network.MyApi
 import ie.eoinahern.currencyconverter.tools.DATABASE_NAME
@@ -37,6 +40,19 @@ class ApplicationModule {
     @Singleton
     fun getMoshi(): Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
+
+    @Provides
+    @Singleton
+    fun getSharedPrefs(context: Context): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+    }
+
+    @Provides
+    @Singleton
+    fun getEditor(prefs: SharedPreferences): SharedPreferences.Editor {
+        return prefs.edit()
+    }
+
     @Singleton
     @Provides
     fun getClient(): OkHttpClient {
@@ -62,8 +78,8 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun getDatabase(context: Context): CurrencyDatabase {
+    fun getDatabase(context: Context): CurrencyDAO {
         return Room.databaseBuilder(context, CurrencyDatabase::class.java, DATABASE_NAME)
-            .build()
+            .build().currencyDAO()
     }
 }
