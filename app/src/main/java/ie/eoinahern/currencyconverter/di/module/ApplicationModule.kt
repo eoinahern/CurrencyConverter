@@ -3,6 +3,7 @@ package ie.eoinahern.currencyconverter.di.module
 import android.app.Application
 import android.content.Context
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import ie.eoinahern.currencyconverter.data.network.MyApi
@@ -31,11 +32,11 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun getMoshi(): Moshi = Moshi.Builder().build()
+    fun getMoshi(): Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
-
+    @Singleton
     @Provides
-    fun interceptor(key: String): OkHttpClient {
+    fun getClient(): OkHttpClient {
         val interceptor = Interceptor { chain ->
             val initialRequest = chain.request()
             val url = chain.request().url().newBuilder().addQueryParameter(FIXER_KEY_NAME, FIXER_KEY).build()
@@ -48,11 +49,11 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun getApi(url: HttpUrl, moshi: Moshi, client: OkHttpClient): MyApi {
+    fun getApi(url: HttpUrl?, moshi: Moshi, client: OkHttpClient): MyApi {
         return Retrofit.Builder()
             .baseUrl(url)
-            .client(client)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .client(client)
             .build().create(MyApi::class.java)
     }
 }
