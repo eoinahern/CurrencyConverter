@@ -4,7 +4,16 @@ import ie.eoinahern.currencyconverter.domain.repository.Repository
 import javax.inject.Inject
 
 
-class RepositoryImpl @Inject constructor() : Repository {
+class RepositoryImpl @Inject constructor(val currencyDataStoreFactory: CurrencyDataStoreFactory) : Repository {
 
+
+    fun getCurrencyList() {
+
+    }
+
+
+    fun getHistoricalCurrencyData() {
+
+    }
 
 }

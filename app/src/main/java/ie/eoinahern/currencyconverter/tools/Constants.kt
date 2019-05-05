@@ -6,3 +6,4 @@ const val FIXER_KEY_NAME = "access_key"
 const val FIXER_URL = "http://data.fixer.io/api/"
 
 const val DATABASE_NAME = "currency_db"
+const val SAVED_DATE = "date_saved"
