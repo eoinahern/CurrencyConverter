@@ -1,4 +1,4 @@
-package ie.eoinahern.currencyconverter.data.repository
+package ie.eoinahern.currencyconverter.data.repository.currency
 
 import android.content.SharedPreferences
 import ie.eoinahern.currencyconverter.data.database.CurrencyDAO
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 @Singleton
 class CurrencyDataStoreFactory @Inject constructor(
     api: MyApi, currencyDao: CurrencyDAO,
-    private val sharepPrefs: SharedPreferences
+    sharedPrefs: SharedPreferences
 ) {
 
     private val networkDataStore: NetworkDataStore
@@ -22,7 +22,7 @@ class CurrencyDataStoreFactory @Inject constructor(
 
     init {
         cacheDataStore = CacheDataStore(currencyDao)
-        networkDataStore = NetworkDataStore(api)
+        networkDataStore = NetworkDataStore(api, currencyDao)
     }
 
     /**
@@ -36,9 +36,9 @@ class CurrencyDataStoreFactory @Inject constructor(
     }
 
 
-    fun getCacheDataStore(): CurrencyDataStore = cacheDataStore
-
-    fun getAPIDataStore(): CurrencyDataStore = networkDataStore
+    private fun determineCacheStale(): Boolean {
+        return true
+    }
 
 
 }
