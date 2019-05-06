@@ -3,5 +3,5 @@ package ie.eoinahern.currencyconverter.domain.repository
 
 interface Repository<T> {
 
-    fun getData(): List<T>
+    fun getData(): T
 }
