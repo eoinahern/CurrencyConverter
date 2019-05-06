@@ -6,4 +6,16 @@ sealed class Either<out L, out R> {
     data class Left<out L>(val a: L) : Either<L, Nothing>()
     data class Right<out R>(val b: R) : Either<Nothing, R>()
 
+    fun isLeft() = this is Left<L>
+    fun isRight() = this is Right<R>
+
+    fun <L> left(a: L) = Left(a)
+    fun <R> right(b: R) = Right(b)
+
+    fun either(fnL: (L) -> Unit, fnR: (R) -> Unit) {
+        when (this) {
+            is Left -> fnL(a)
+            is Right -> fnR(b)
+        }
+    }
 }
