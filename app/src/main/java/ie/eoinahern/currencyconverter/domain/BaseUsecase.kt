@@ -12,14 +12,13 @@ abstract class BaseUsecase<in Param, out Result> {
     abstract suspend fun executeUsecase(p: Param): Either<Failure, Result>
 
     operator fun invoke(
-        params: Param, onResult: (Either<Failure, Result>) -> Unit = {},
-        scope: CoroutineScope = GlobalScope
+        params: Param, onResult: (Either<Failure, Result>) -> Unit = {}
     ) {
-        val job = scope.async(Dispatchers.IO) {
+        val job = GlobalScope.async(Dispatchers.IO) {
             executeUsecase(params)
         }
 
-        usecaseJob = scope.launch(Dispatchers.Main) {
+        usecaseJob = GlobalScope.launch(Dispatchers.Main) {
             onResult(job.await())
         }
     }
@@ -27,5 +26,8 @@ abstract class BaseUsecase<in Param, out Result> {
     fun clearJob() {
         usecaseJob.cancel()
     }
+
+
+    class None
 
 }

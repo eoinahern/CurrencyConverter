@@ -9,6 +9,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
+import ie.eoinahern.currencyconverter.CurrencyApp
 import ie.eoinahern.currencyconverter.data.database.CurrencyDAO
 import ie.eoinahern.currencyconverter.data.database.CurrencyDatabase
 import ie.eoinahern.currencyconverter.data.network.MyApi
@@ -28,8 +29,8 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun getContext(application: Application): Context {
-        return application
+    fun getContext(application: CurrencyApp): Context {
+        return application.applicationContext
     }
 
     @Provides

@@ -8,6 +8,6 @@ data class DomainCurrency(
     @PrimaryKey
     val currencySymbol: String,
     val amount: Double,
-    val flagURL: String,
+    val flagRes: Int,
     val name: String
 )

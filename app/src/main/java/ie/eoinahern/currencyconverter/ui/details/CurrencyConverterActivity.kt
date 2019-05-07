@@ -1,18 +1,14 @@
 package ie.eoinahern.currencyconverter.ui.details
 
 import android.os.Bundle
-import android.provider.Settings
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.AndroidInjection
 import ie.eoinahern.currencyconverter.R
-import ie.eoinahern.currencyconverter.data.model.LatestCurrencies
-import ie.eoinahern.currencyconverter.data.network.MyApi
+import ie.eoinahern.currencyconverter.domain.model.DomainCurrency
 import ie.eoinahern.currencyconverter.tools.ViewModelFactory
 import ie.eoinahern.currencyconverter.ui.base.BaseActivity
-import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 class CurrencyConverterActivity : BaseActivity() {
@@ -20,11 +16,11 @@ class CurrencyConverterActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-
     @Inject
-    lateinit var api: MyApi
-
+    lateinit var adapter: CurrencyConverterAdapter
     private lateinit var viewModel: CurrencyConverterViewModel
+    private val linearLayoutManager by lazy { LinearLayoutManager(this) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -33,20 +29,24 @@ class CurrencyConverterActivity : BaseActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(CurrencyConverterViewModel::class.java)
 
+        viewModel.getCurrencyList()
+        observeCallState()
+        observeFailure()
+    }
 
-        val job = GlobalScope.launch(Dispatchers.Main) {
-            withContext(Dispatchers.IO) {
-                val call = api.getData()
-                val resp = call.execute()
-                if (resp.isSuccessful) {
-                    println(resp.body())
-                    val body = resp.body()
-                    println(body)
-                } else {
-                    resp.message()
-                }
-            }
-        }
+    private fun observeCallState() {
+        viewModel.observeData().observe(this, Observer<List<DomainCurrency>> {
+
+        })
+    }
+
+    private fun observeFailure() {
+        viewModel.getFailureResult().observe(this, Observer {
+
+        })
+    }
+
+    private fun attachCurrencyList() {
 
     }
 

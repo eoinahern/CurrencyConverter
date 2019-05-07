@@ -63,5 +63,11 @@ dependencies {
 
     implementation "android.arch.persistence.room:runtime:$room_version"
     kapt "android.arch.persistence.room:compiler:$room_version"
+    implementation 'com.github.midorikocak:currency-picker-android:1.1.9'
+
+   
+    kapt "android.arch.lifecycle:compiler:$lifecycle_version"
+
+
 
 }
