@@ -27,6 +27,7 @@ class CurrencyConverterAdapter @Inject constructor() : RecyclerView.Adapter<Curr
 
     fun setList(list: List<DomainCurrency>) {
         this.list = list
+        notifyDataSetChanged()
     }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
