@@ -18,7 +18,7 @@ object CurrencyMapper {
     }
 
     private fun matchCurrencySymbolTopCountry(currency: String): String {
-        return "boo"
+        return ""
     }
 
     private fun getNameOfCurrency(): String = "dollar"

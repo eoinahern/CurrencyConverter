@@ -8,7 +8,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 
-class CurrencyRepositoryImpl @Inject constructor(val currencyDataStoreFactory: CurrencyDataStoreFactory) :
+class CurrencyRepositoryImpl @Inject constructor(private val currencyDataStoreFactory: CurrencyDataStoreFactory) :
     Repository<Either<Failure, List<DomainCurrency>>> {
 
     override fun getData(): Either<Failure, List<DomainCurrency>> {

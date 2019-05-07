@@ -11,17 +11,5 @@ import javax.inject.Inject
 class GetCurrency @Inject constructor(val repository: CurrencyRepositoryImpl) :
     BaseUsecase<Unit, List<DomainCurrency>>() {
 
-    override suspend fun executeUsecase(p: Unit): Either<Failure, List<DomainCurrency>> {
-        return try {
-            val item = repository.currencyDataStoreFactory
-                .getCurrencyDatastore().getCurrencyList()
-            if (item.isNullOrEmpty()) {
-                Either.Right(emptyList())
-            } else {
-                Either.Right(item)
-            }
-        } catch (e: Exception) {
-            Either.Left(Failure.NetworkFailure)
-        }
-    }
+    override suspend fun executeUsecase(p: Unit): Either<Failure, List<DomainCurrency>> = repository.getData()
 }
