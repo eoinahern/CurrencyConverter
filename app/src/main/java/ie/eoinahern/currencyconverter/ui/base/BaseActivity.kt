@@ -2,10 +2,9 @@ package ie.eoinahern.currencyconverter.ui.base
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.LifecycleOwner
 
 
-abstract class BaseActivity : AppCompatActivity(), LifecycleOwner {
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

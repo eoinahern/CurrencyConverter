@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
 import ie.eoinahern.currencyconverter.R
 import ie.eoinahern.currencyconverter.domain.model.DomainCurrency
@@ -18,7 +19,7 @@ class CurrencyConverterActivity : BaseActivity() {
     lateinit var viewModelFactory: ViewModelFactory
 
     @Inject
-    lateinit var adapter: CurrencyConverterAdapter
+    lateinit var currencyAdapter: CurrencyConverterAdapter
     private lateinit var viewModel: CurrencyConverterViewModel
     private val linearLayoutManager by lazy { LinearLayoutManager(this) }
 
@@ -38,20 +39,19 @@ class CurrencyConverterActivity : BaseActivity() {
 
     private fun observeCallState() {
         viewModel.observeData().observe(this, Observer<List<DomainCurrency>> {
-            adapter.setList(it)
+            currencyAdapter.setList(it)
         })
     }
 
     private fun observeFailure() {
         viewModel.getFailureResult().observe(this, Observer {
-
         })
     }
 
     private fun attachCurrencyList() {
         recyclerView.apply {
             layoutManager = linearLayoutManager
-            adapter = adapter
+            adapter = currencyAdapter
         }
     }
 
