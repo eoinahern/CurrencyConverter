@@ -12,23 +12,17 @@ import javax.inject.Inject
 
 class CurrencyConverterViewModel @Inject constructor(private val getCurrencies: GetCurrency) : BaseViewModel() {
 
-    private val currencyData: LiveData<List<DomainCurrency>> = MutableLiveData()
+    private val currencyData: MutableLiveData<List<DomainCurrency>> = MutableLiveData()
 
     fun getCurrencyList() = getCurrencies(BaseUsecase.None()) { it.either(::onError, ::updateList) }
 
-    fun observeData(): LiveData<List<DomainCurrency>> {
-        return currencyData
+    fun observeData(): LiveData<List<DomainCurrency>> = currencyData
+
+    private fun onError(failure: Failure) {
+        failureLiveData.postValue(failure)
     }
 
-
-    private fun onError(fail : Failure) {
-        //do something with failure
+    private fun updateList(list: List<DomainCurrency>) {
+        currencyData.postValue(list)
     }
-
-
-    fun updateList(list : List<DomainCurrency>) {
-        println(list)
-    }
-
-
 }

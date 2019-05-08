@@ -8,7 +8,7 @@ import ie.eoinahern.currencyconverter.domain.exception.Failure
 
 open class BaseViewModel : ViewModel() {
 
-    private val failureLiveData = MutableLiveData<Failure>()
+    protected val failureLiveData = MutableLiveData<Failure>()
 
     fun getFailureResult(): LiveData<Failure> {
         return failureLiveData
