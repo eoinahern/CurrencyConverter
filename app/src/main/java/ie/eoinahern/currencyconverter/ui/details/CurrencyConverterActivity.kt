@@ -1,8 +1,11 @@
 package ie.eoinahern.currencyconverter.ui.details
 
 import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.LinearLayout.HORIZONTAL
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
@@ -22,6 +25,7 @@ class CurrencyConverterActivity : BaseActivity() {
     lateinit var currencyAdapter: CurrencyConverterAdapter
     private lateinit var viewModel: CurrencyConverterViewModel
     private val linearLayoutManager by lazy { LinearLayoutManager(this) }
+    private val decorator: CurrencyItemDecoration by lazy { CurrencyItemDecoration(this) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,13 +42,22 @@ class CurrencyConverterActivity : BaseActivity() {
     }
 
     private fun observeCallState() {
-        viewModel.observeData().observe(this, Observer<List<DomainCurrency>> {
-            currencyAdapter.setList(it)
+        viewModel.observeData().observe(this, Observer<Pair<DomainCurrency, List<DomainCurrency>>> {
+            currencyAdapter.setList(it.second)
+            setHeadElement(it.first)
         })
+    }
+
+    private fun setHeadElement(currency: DomainCurrency) {
+        image.setImageResource(currency.flagRes)
+        amountTxt.text = currency.amount
+        symbolTxt.text = currency.currencySymbol
+        name.text = currency.name
     }
 
     private fun observeFailure() {
         viewModel.getFailureResult().observe(this, Observer {
+            println("failure")
         })
     }
 
@@ -52,6 +65,7 @@ class CurrencyConverterActivity : BaseActivity() {
         recyclerView.apply {
             layoutManager = linearLayoutManager
             adapter = currencyAdapter
+            addItemDecoration(decorator)
         }
     }
 

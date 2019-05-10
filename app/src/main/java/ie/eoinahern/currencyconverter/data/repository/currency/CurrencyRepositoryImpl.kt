@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 
 class CurrencyRepositoryImpl @Inject constructor(private val currencyDataStoreFactory: CurrencyDataStoreFactory) :
-    Repository<Either<Failure, List<DomainCurrency>>> {
+    Repository<Either<Failure, Pair<DomainCurrency, List<DomainCurrency>>>> {
 
-    override fun getData(): Either<Failure, List<DomainCurrency>> {
+    override fun getData(): Either<Failure, Pair<DomainCurrency, List<DomainCurrency>>> {
         return try {
             val data = currencyDataStoreFactory.getCurrencyDatastore().getCurrencyList()
             Either.Right(data)

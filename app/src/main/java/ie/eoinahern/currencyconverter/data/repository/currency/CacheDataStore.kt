@@ -10,8 +10,10 @@ class CacheDataStore constructor(private val currencyDAO: CurrencyDAO) :
     CurrencyDataStore {
 
     override
-    fun getCurrencyList(): List<DomainCurrency> {
-        return currencyDAO.getAll()
+    fun getCurrencyList(): Pair<DomainCurrency, List<DomainCurrency>> {
+        val list = currencyDAO.getAll()
+        val head = list[0]
+        return Pair(head, list.subList(1, list.size))
     }
 
 }

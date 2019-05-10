@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class DomainCurrency(
     @PrimaryKey
     val currencySymbol: String,
-    val amount: Double,
+    val amount: String,
     val flagRes: Int,
     val name: String
 )

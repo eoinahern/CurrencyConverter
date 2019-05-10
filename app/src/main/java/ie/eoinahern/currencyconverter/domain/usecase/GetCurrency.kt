@@ -10,8 +10,9 @@ import kotlin.reflect.jvm.internal.impl.descriptors.deserialization.AdditionalCl
 
 
 class GetCurrency @Inject constructor(val repository: CurrencyRepositoryImpl) :
-    BaseUsecase<BaseUsecase.None, List<DomainCurrency>>() {
+    BaseUsecase<BaseUsecase.None, Pair<DomainCurrency, List<DomainCurrency>>>() {
 
-    override suspend fun executeUsecase(params : None): Either<Failure, List<DomainCurrency>> = repository.getData()
+    override suspend fun executeUsecase(params: None): Either<Failure, Pair<DomainCurrency,
+            List<DomainCurrency>>> = repository.getData()
 
 }

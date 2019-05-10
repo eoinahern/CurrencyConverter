@@ -35,7 +35,7 @@ class CurrencyConverterAdapter @Inject constructor() : RecyclerView.Adapter<Curr
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
         fun bindData(item: DomainCurrency) {
-            itemView.amountTxt.text = item.amount.toString()
+            itemView.amountTxt.text = item.amount
             itemView.currencySymbolTxt.text = item.currencySymbol
             itemView.CurrencyNameTxt.text = item.name
             if (item.flagRes != -1)

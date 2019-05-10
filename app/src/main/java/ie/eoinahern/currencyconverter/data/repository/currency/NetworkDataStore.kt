@@ -11,25 +11,24 @@ import retrofit2.Call
 class NetworkDataStore constructor(private val api: MyApi, private val currencyDAO: CurrencyDAO) :
     CurrencyDataStore {
 
-    /**
-     * map to correct type
-     */
+    override fun getCurrencyList(): Pair<DomainCurrency, List<DomainCurrency>> {
+        val domainCurrencies = api.getAllSymbls().execute().body()?.symbols
+        val countryNames = api.getData().execute().body()?.rates
 
-    override fun getCurrencyList(): List<DomainCurrency> {
-        val call = api.getData()
+        val mappedDomain = CurrencyMapper
+            .mapToUIModel(
+                requireNotNull(countryNames),
+                requireNotNull(domainCurrencies)
+            )
 
-        val domainCurrencies = convertCallToType(api.getAllSymbls())?.symbols
-        val countryNames = convertCallToType(api.getData())?.rates
-
-        val mappedDomain = CurrencyMapper.mapToUIModel(countryNames, domainCurrencies)
-        currencyDAO.insertData(mappedDomain)
+        currencyDAO.insertData(revertToList(mappedDomain))
         return mappedDomain
     }
 
-
-    private inline fun <T> convertCallToType(call: Call<T>): T? {
-        val resp = call.execute()
-        return resp.body()
+    private fun revertToList(pair: Pair<DomainCurrency, List<DomainCurrency>>): List<DomainCurrency> {
+        val list = pair.second.toMutableList()
+        list.add(0, pair.first)
+        return list
     }
 
 }
