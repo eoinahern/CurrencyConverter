@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
 import ie.eoinahern.currencyconverter.R
 import ie.eoinahern.currencyconverter.domain.model.DomainCurrency
+import ie.eoinahern.currencyconverter.tools.CURRENCY_ITEM
 import ie.eoinahern.currencyconverter.tools.ViewModelFactory
 import ie.eoinahern.currencyconverter.ui.base.BaseActivity
+import ie.eoinahern.currencyconverter.ui.selection.GraphActivity
 import kotlinx.android.synthetic.main.activity_currency_converter.*
 import javax.inject.Inject
 
@@ -24,9 +26,6 @@ class CurrencyConverterActivity : BaseActivity() {
     @Inject
     lateinit var currencyAdapter: CurrencyConverterAdapter
     private lateinit var viewModel: CurrencyConverterViewModel
-    private val linearLayoutManager by lazy { LinearLayoutManager(this) }
-    private val decorator: CurrencyItemDecoration by lazy { CurrencyItemDecoration(this) }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -62,11 +61,15 @@ class CurrencyConverterActivity : BaseActivity() {
     }
 
     private fun attachCurrencyList() {
-        recyclerView.apply {
-            layoutManager = linearLayoutManager
-            adapter = currencyAdapter
-            addItemDecoration(decorator)
-        }
+        recyclerView.addItemDecoration(CurrencyItemDecoration(this, R.color.colorAccent, 3f, 3f))
+        recyclerView.adapter = currencyAdapter
+        currencyAdapter.clickListener = ::navigateNext
+    }
+
+    private fun navigateNext(domainCurrency: DomainCurrency) {
+        val intent = GraphActivity.getStartIntent(this)
+        intent.putExtra(CURRENCY_ITEM, domainCurrency)
+        startActivity(intent)
     }
 
     override fun getLayout(): Int = R.layout.activity_currency_converter

@@ -3,33 +3,37 @@ package ie.eoinahern.currencyconverter.ui.details
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+
+import android.util.TypedValue
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import ie.eoinahern.currencyconverter.R
 
-class CurrencyItemDecoration constructor(val context: Context) : RecyclerView.ItemDecoration() {
 
-    private val color = ContextCompat.getColor(context, R.color.colorPrimary)
-    private val paint: Paint = Paint().apply {
-        style = Paint.Style.FILL
+class CurrencyItemDecoration : RecyclerView.ItemDecoration {
+
+    private val paint: Paint = Paint()
+    private var inset: Float = 10f
+
+    constructor(context: Context, color: Int, height: Float, inset: Float) {
+        paint.color = ContextCompat.getColor(context, color)
+        val thickness: Float = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            height, context.resources.displayMetrics
+        )
+        this.inset = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, inset,
+            context.resources.displayMetrics
+        )
+        paint.strokeWidth = thickness
     }
 
-    init {
-        paint.color = color
-    }
-
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        super.onDraw(c, parent, state)
-
-        val count = parent.childCount
-
-        for (i in 1.until(count - 1)) {
-            val child = parent.getChildAt(i)
-            val height = child.height
-            val width = child.width
-            c.drawLine(0f, child.height - 10f, child.width.toFloat(), child.height - 10f, paint)
+    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        for (i in 0 until parent.childCount - 1) {
+            val v = parent.getChildAt(i)
+            c.drawLine(
+                v.left.toFloat() + inset, v.bottom.toFloat(),
+                v.right.toFloat() - inset, (v.bottom.toFloat()), paint
+            )
         }
     }
-
-
 }

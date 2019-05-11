@@ -1,5 +1,7 @@
 package ie.eoinahern.currencyconverter.ui.selection
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import dagger.android.AndroidInjection
@@ -22,6 +24,9 @@ class GraphActivity : BaseActivity() {
 
     }
 
+    companion object {
+        fun getStartIntent(context: Context): Intent = Intent(context, GraphActivity::class.java)
+    }
 
     override fun getLayout(): Int = R.layout.activity_graph
 }

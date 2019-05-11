@@ -13,6 +13,7 @@ import javax.inject.Inject
 class CurrencyConverterAdapter @Inject constructor() : RecyclerView.Adapter<CurrencyConverterAdapter.ViewHolder>() {
 
     private var list: MutableList<DomainCurrency> = mutableListOf()
+    var clickListener: (DomainCurrency) -> Unit = { _ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyConverterAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -32,7 +33,13 @@ class CurrencyConverterAdapter @Inject constructor() : RecyclerView.Adapter<Curr
         notifyDataSetChanged()
     }
 
-    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+
+        init {
+            itemView.setOnClickListener {
+                clickListener(list[adapterPosition])
+            }
+        }
 
         fun bindData(item: DomainCurrency) {
             itemView.amountTxt.text = item.amount
@@ -42,5 +49,4 @@ class CurrencyConverterAdapter @Inject constructor() : RecyclerView.Adapter<Curr
                 itemView.flag_icon.setImageResource(item.flagRes)
         }
     }
-
 }
