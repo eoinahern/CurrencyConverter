@@ -45,8 +45,9 @@ class CurrencyConverterAdapter @Inject constructor() : RecyclerView.Adapter<Curr
             itemView.amountTxt.text = item.amount
             itemView.currencySymbolTxt.text = item.currencySymbol
             itemView.CurrencyNameTxt.text = item.name
-            if (item.flagRes != -1)
-                itemView.flag_icon.setImageResource(item.flagRes)
+            if (item.flagRes != -1) itemView.flag_icon.setImageResource(item.flagRes)
+            else itemView.flag_icon.setImageResource(R.drawable.empty_flag_shape)
+
         }
     }
 }

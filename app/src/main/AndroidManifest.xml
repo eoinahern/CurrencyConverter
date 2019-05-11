@@ -21,8 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.selection.GraphActivity">
-
+        <activity android:name=".ui.selection.GraphActivity"
+                  android:parentActivityName=".ui.details.CurrencyConverterActivity">
         </activity>
         <activity android:name=".ui.base.BaseActivity">
         </activity>

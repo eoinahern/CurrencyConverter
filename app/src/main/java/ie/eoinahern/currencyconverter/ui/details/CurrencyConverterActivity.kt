@@ -43,9 +43,10 @@ class CurrencyConverterActivity : BaseActivity() {
     }
 
     private fun observeCallState() {
-        viewModel.observeData().observe(this, Observer<Pair<DomainCurrency, List<DomainCurrency>>> {
-            currencyAdapter.setList(it.second)
-            setHeadElement(it.first)
+        viewModel.observeData().observe(this, Observer<Pair<DomainCurrency, List<DomainCurrency>>> { currencyInfo ->
+            currencyAdapter.setList(currencyInfo.second)
+            setHeadElement(currencyInfo.first)
+            headerView.setOnClickListener { navigateNext(currencyInfo.first) }
             loading.setState(LoadingView.State.GONE)
         })
     }

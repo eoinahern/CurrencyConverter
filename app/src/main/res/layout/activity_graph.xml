@@ -8,6 +8,125 @@
         tools:context=".ui.selection.GraphActivity">
 
 
+    <androidx.appcompat.widget.Toolbar android:layout_width="match_parent"
+                                       android:layout_height="?attr/actionBarSize"
+                                       app:layout_constraintTop_toTopOf="parent"
+                                       app:layout_constraintEnd_toEndOf="parent"
+                                       app:layout_constraintStart_toStartOf="parent"
+                                       android:background="@color/colorPrimary"
+                                       android:id="@+id/toolbar"
+                                       android:theme="@style/toolbarStyle"/>
+
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  app:layout_constraintTop_toBottomOf="@id/toolbar"
+                  android:id="@+id/item_left"
+                  android:layout_marginTop="12dp"
+                  android:padding="16dp"
+                  android:orientation="horizontal"
+                  android:weightSum="2"
+                  app:layout_constraintStart_toStartOf="parent">
+
+
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+
+            <ImageView android:layout_width="30dp" android:layout_height="30dp"
+                       android:layout_alignParentLeft="true"
+                       android:layout_centerVertical="true"/>
+
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:layout_centerHorizontal="true">
+
+                <TextView android:layout_width="wrap_content"
+                          android:textSize="18sp"
+                          android:layout_height="wrap_content"
+                          android:text="hello"
+                          tools:text="hello"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:textSize="18sp"
+                          android:layout_height="wrap_content"
+                          android:text="EURO"
+                          tools:text="EURO"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <ImageView android:layout_width="40dp" android:layout_height="40dp"
+                   android:layout_gravity="center"
+                   android:src="@drawable/ic_compare_arrows_grey_32dp"/>
+
+
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:layout_centerHorizontal="true">
+
+                <TextView android:layout_width="wrap_content"
+                          android:textSize="18sp"
+                          android:layout_height="wrap_content"
+                          android:text="hello"
+                          tools:text="hello"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:textSize="18sp"
+                          android:layout_height="wrap_content"
+                          android:text="EURO"
+                          tools:text="EURO"/>
+
+            </LinearLayout>
+
+            <ImageView android:layout_width="30dp" android:layout_height="30dp"
+                       android:layout_alignParentRight="true"
+                       android:layout_centerVertical="true"/>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="60dp"
+                  app:layout_constraintTop_toBottomOf="@id/item_left" android:id="@+id/linearLayout"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  android:layout_marginTop="12dp"
+                  android:gravity="center"
+    >
+
+
+        <RadioGroup android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+            <ToggleButton android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            <ToggleButton android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            <ToggleButton android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            <ToggleButton android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+
+    <com.github.mikephil.charting.charts.LineChart android:layout_width="match_parent"
+                                                   android:layout_height="0dp" android:id="@+id/linegraph"
+                                                   app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                                                   android:layout_marginBottom="8dp"
+                                                   app:layout_constraintBottom_toBottomOf="parent"/>
+
+
     <FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
                  app:layout_constraintBottom_toBottomOf="parent"
                  app:layout_constraintStart_toStartOf="parent"

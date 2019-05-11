@@ -8,6 +8,7 @@ import dagger.android.AndroidInjection
 import ie.eoinahern.currencyconverter.R
 import ie.eoinahern.currencyconverter.tools.ViewModelFactory
 import ie.eoinahern.currencyconverter.ui.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_graph.*
 import javax.inject.Inject
 
 class GraphActivity : BaseActivity() {
@@ -22,6 +23,12 @@ class GraphActivity : BaseActivity() {
         val viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(GraphActivtyViewModel::class.java)
 
+        setActionBar()
+    }
+
+    private fun setActionBar() {
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     companion object {
