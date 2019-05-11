@@ -1,6 +1,7 @@
 package ie.eoinahern.currencyconverter.ui.details
 
 import android.os.Bundle
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.LinearLayout.HORIZONTAL
 import androidx.lifecycle.Observer
@@ -12,6 +13,7 @@ import dagger.android.AndroidInjection
 import ie.eoinahern.currencyconverter.R
 import ie.eoinahern.currencyconverter.domain.model.DomainCurrency
 import ie.eoinahern.currencyconverter.tools.CURRENCY_ITEM
+import ie.eoinahern.currencyconverter.tools.LoadingView
 import ie.eoinahern.currencyconverter.tools.ViewModelFactory
 import ie.eoinahern.currencyconverter.ui.base.BaseActivity
 import ie.eoinahern.currencyconverter.ui.selection.GraphActivity
@@ -44,6 +46,7 @@ class CurrencyConverterActivity : BaseActivity() {
         viewModel.observeData().observe(this, Observer<Pair<DomainCurrency, List<DomainCurrency>>> {
             currencyAdapter.setList(it.second)
             setHeadElement(it.first)
+            loading.setState(LoadingView.State.GONE)
         })
     }
 
@@ -56,7 +59,7 @@ class CurrencyConverterActivity : BaseActivity() {
 
     private fun observeFailure() {
         viewModel.getFailureResult().observe(this, Observer {
-            println("failure")
+            loading.setState(LoadingView.State.FAILED)
         })
     }
 

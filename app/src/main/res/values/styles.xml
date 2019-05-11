@@ -9,8 +9,4 @@
     </style>
 
 
-    <style name="ProgBarStyle">
-        <item name="android:colorAccent">@color/colorPrimary</item>
-    </style>
-
 </resources>

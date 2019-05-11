@@ -40,12 +40,15 @@ class LoadingView : FrameLayout {
                 loadingView.visibility = View.GONE
                 errorView.visibility = View.VISIBLE
             }
+            State.GONE -> {
+                visibility = View.GONE
+            }
         }
     }
 
     enum class State {
         LOADING,
-        FAILED
+        FAILED,
+        GONE
     }
-
 }
