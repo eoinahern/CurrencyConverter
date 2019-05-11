@@ -6,7 +6,8 @@ import javax.inject.Inject
 class GraphActivtyViewModel @Inject constructor() : ViewModel() {
 
 
-    fun doStuff() {
+
+    fun getGraphData() {
 
     }
 
