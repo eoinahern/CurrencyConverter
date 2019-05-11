@@ -109,10 +109,41 @@
                     android:orientation="horizontal">
 
 
-            <ToggleButton android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-            <ToggleButton android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-            <ToggleButton android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-            <ToggleButton android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            <RadioButton android:layout_width="wrap_content"
+                         android:text="@string/oneDayTxt"
+                         android:button="@null"
+                         android:padding="8dp"
+                         android:textSize="18sp"
+                         android:layout_margin="12dp"
+                         android:textColor="@drawable/graph_time_text_color"
+                         android:layout_height="wrap_content"/>
+
+
+            <RadioButton android:layout_width="wrap_content"
+                         android:text="@string/oneWeekTxt"
+                         android:button="@null"
+                         android:padding="8dp"
+                         android:textSize="18sp"
+                         android:layout_margin="12dp"
+                         android:textColor="@drawable/graph_time_text_color"
+                         android:layout_height="wrap_content"/>
+
+            <RadioButton android:layout_width="wrap_content"
+                         android:text="@string/oneMonthTxt"
+                         android:button="@null"
+                         android:padding="8dp"
+                         android:textSize="18sp"
+                         android:layout_margin="12dp"
+                         android:textColor="@drawable/graph_time_text_color"
+                         android:layout_height="wrap_content"/>
+
+            <RadioButton android:layout_width="wrap_content"
+                         android:text="@string/sixMonthTxt"
+                         android:button="@null"
+                         android:textSize="18sp"
+                         android:layout_margin="12dp"
+                         android:textColor="@drawable/graph_time_text_color"
+                         android:padding="8dp" android:layout_height="wrap_content"/>
 
         </RadioGroup>
 

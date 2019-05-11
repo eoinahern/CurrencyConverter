@@ -2,4 +2,8 @@
     <string name="app_name">CurrencyConverter</string>
     <string name="loading_txt">Loading ...</string>
     <string name="loading_failed">Loading failed? please try again!</string>
+    <string name="oneDayTxt">24H</string>
+    <string name="oneWeekTxt">1W</string>
+    <string name="oneMonthTxt">1M</string>
+    <string name="sixMonthTxt">6M</string>
 </resources>
