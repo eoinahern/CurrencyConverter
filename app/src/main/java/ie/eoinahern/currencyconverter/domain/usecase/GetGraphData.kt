@@ -8,11 +8,9 @@ import javax.inject.Inject
 
 
 class GetGraphData @Inject constructor(private val repo: GraphDataRepositoryImpl) :
-    BaseUsecase<Pair<String, String>, Either<Failure, Map<String, Double>>>() {
+    BaseUsecase<Triple<String, String, String>, Map<String, Double>>() {
 
-    override suspend fun executeUsecase(p: Pair<String, String>): Either<Failure, Either<Failure, Map<String, Double>>> {
-        return repo.getGraphData()
+    override suspend fun executeUsecase(params: Triple<String, String, String>): Either<Failure, Map<String, Double>> {
+        return repo.getGraphData(params.first, params.second, params.third)
     }
-
-
 }

@@ -24,6 +24,7 @@ class GraphActivity : BaseActivity() {
             .get(GraphActivtyViewModel::class.java)
 
         setActionBar()
+        viewModel.getGraphData()
     }
 
     private fun setActionBar() {

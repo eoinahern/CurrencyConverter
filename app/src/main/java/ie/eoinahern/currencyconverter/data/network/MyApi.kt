@@ -13,9 +13,7 @@ interface MyApi {
     fun getData(): Call<LatestCurrencies>
 
     @GET("timeseries")
-    fun getTimeSeries(
-        @Query("start_date") start: String, @Query("end_date") end: String,
-        @Query("symbols") symbols: List<String>
+    fun getTimeSeries(@Query("start_date") start: String, @Query("end_date") end: String, @Query("symbols") symbols: List<String>
     ): Call<GraphData>
 
     @GET("symbols")

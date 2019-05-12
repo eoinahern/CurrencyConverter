@@ -8,7 +8,7 @@ object GraphDataMapper {
     fun mapData(graphData: GraphData): Map<String, Double> {
         val rates = graphData.rates
 
-        return rates.date.map {
+        return rates.map {
             it.key to it.value.entries.first().value
         }.toMap()
     }
