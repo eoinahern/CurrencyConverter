@@ -73,5 +73,7 @@ dependencies {
     kapt "android.arch.lifecycle:compiler:$lifecycle_version"
     implementation "com.jakewharton.threetenabp:threetenabp:$three_ten_version"
 
+    implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
+
 
 }

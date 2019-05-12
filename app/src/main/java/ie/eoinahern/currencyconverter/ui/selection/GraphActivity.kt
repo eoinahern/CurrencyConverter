@@ -3,6 +3,9 @@ package ie.eoinahern.currencyconverter.ui.selection
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.github.mikephil.charting.data.Entry
@@ -14,6 +17,7 @@ import ie.eoinahern.currencyconverter.data.model.GraphNestedMap
 import ie.eoinahern.currencyconverter.domain.model.DomainCurrency
 import ie.eoinahern.currencyconverter.tools.*
 import ie.eoinahern.currencyconverter.ui.base.BaseActivity
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_graph.*
 import javax.inject.Inject
 
@@ -21,6 +25,8 @@ class GraphActivity : BaseActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    private lateinit var disp: Disposable
 
     private val viewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)
@@ -31,6 +37,7 @@ class GraphActivity : BaseActivity() {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setActionBar()
+        setListeners()
         observeSelection()
         observeFailure()
         getIntentData()
@@ -58,11 +65,12 @@ class GraphActivity : BaseActivity() {
     }
 
     private fun observeSelection() {
-        viewModel.liveGrapData().observe(this, Observer {
-            loading.setState(LoadingView.State.GONE)
-            setListeners()
-            setLinegraph(it[SIX_MONTH_KEY])
-        })
+        disp = viewModel.getGraphData()
+            .subscribe {
+                linegraph.visibility = View.VISIBLE
+                loading.setState(LoadingView.State.GONE)
+                setLinegraph(it)
+            }
     }
 
     private fun observeFailure() {
@@ -76,6 +84,7 @@ class GraphActivity : BaseActivity() {
         dataSet.color = getColor(R.color.colorPrimary)
         dataSet.valueTextColor = getColor(R.color.colorPrimary)
         dataSet.setDrawCircles(false)
+        dataSet.setDrawValues(false)
         dataSet.setDrawFilled(true)
         dataSet.fillDrawable = getDrawable(R.drawable.graph_gradient)
         linegraph.xAxis.setDrawLabels(false)
@@ -84,11 +93,26 @@ class GraphActivity : BaseActivity() {
     }
 
     private fun setListeners() {
+        timePeriodRadioGroup.setOnCheckedChangeListener(listener)
+    }
 
+    private val listener: (RadioGroup, Int) -> Unit = { group, checkId ->
+        group.findViewById<RadioButton>(checkId).isChecked = true
+        when (checkId) {
+            R.id.one_day -> viewModel.updateGraphData(TWOFOUR_HOUR_KEY)
+            R.id.one_week -> viewModel.updateGraphData(ONE_WEEK_KEY)
+            R.id.one_month -> viewModel.updateGraphData(ONE_MONTH_KEY)
+            R.id.six_months -> viewModel.updateGraphData(SIX_MONTH_KEY)
+        }
     }
 
     companion object {
         fun getStartIntent(context: Context): Intent = Intent(context, GraphActivity::class.java)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disp.dispose()
     }
 
     override fun getLayout(): Int = R.layout.activity_graph

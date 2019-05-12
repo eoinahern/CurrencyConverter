@@ -1,6 +1,7 @@
 package ie.eoinahern.currencyconverter.data.model.mapper
 
 import com.mynameismidori.currencypicker.ExtendedCurrency
+import ie.eoinahern.currencyconverter.R
 import ie.eoinahern.currencyconverter.domain.model.DomainCurrency
 import ie.eoinahern.currencyconverter.tools.EMPTY_STRING
 import ie.eoinahern.currencyconverter.tools.EURO_KEY
@@ -40,7 +41,7 @@ object CurrencyMapper {
     private fun createFlagUrl(currencySymbol: String): Int {
         return currencies.firstOrNull {
             it.code == currencySymbol
-        }?.flag ?: -1
+        }?.flag ?: R.drawable.empty_flag_shape
     }
 
     private fun getCurrencyFormat(amount: Double): String {

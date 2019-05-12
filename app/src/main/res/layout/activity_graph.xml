@@ -110,6 +110,7 @@
 
         <RadioGroup android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:id="@+id/timePeriodRadioGroup"
                     android:orientation="horizontal">
 
 
@@ -117,6 +118,8 @@
                          android:text="@string/oneDayTxt"
                          android:button="@null"
                          android:padding="8dp"
+                         android:id="@+id/one_day"
+                         android:checked="true"
                          android:textSize="18sp"
                          android:layout_margin="12dp"
                          android:textColor="@drawable/graph_time_text_color"
@@ -128,6 +131,7 @@
                          android:button="@null"
                          android:padding="8dp"
                          android:textSize="18sp"
+                         android:id="@+id/one_week"
                          android:layout_margin="12dp"
                          android:textColor="@drawable/graph_time_text_color"
                          android:layout_height="wrap_content"/>
@@ -135,6 +139,7 @@
             <RadioButton android:layout_width="wrap_content"
                          android:text="@string/oneMonthTxt"
                          android:button="@null"
+                         android:id="@+id/one_month"
                          android:padding="8dp"
                          android:textSize="18sp"
                          android:layout_margin="12dp"
@@ -145,6 +150,7 @@
                          android:text="@string/sixMonthTxt"
                          android:button="@null"
                          android:textSize="18sp"
+                         android:id="@+id/six_months"
                          android:layout_margin="12dp"
                          android:textColor="@drawable/graph_time_text_color"
                          android:padding="8dp" android:layout_height="wrap_content"/>
@@ -159,6 +165,7 @@
                                                    android:layout_height="0dp" android:id="@+id/linegraph"
                                                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                                                    android:layout_margin="18dp"
+                                                   android:visibility="gone"
                                                    app:layout_constraintBottom_toBottomOf="parent"/>
 
 
