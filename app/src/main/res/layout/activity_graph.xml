@@ -34,6 +34,8 @@
 
             <ImageView android:layout_width="30dp" android:layout_height="30dp"
                        android:layout_alignParentLeft="true"
+                       android:src="@drawable/euro"
+                       android:scaleType="fitXY"
                        android:layout_centerVertical="true"/>
 
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -43,14 +45,15 @@
                 <TextView android:layout_width="wrap_content"
                           android:textSize="18sp"
                           android:layout_height="wrap_content"
-                          android:text="hello"
-                          tools:text="hello"/>
+                          android:text="@string/one_euro"
+                />
 
                 <TextView android:layout_width="wrap_content"
                           android:textSize="18sp"
                           android:layout_height="wrap_content"
-                          android:text="EURO"
-                          tools:text="EURO"/>
+                          android:text="@string/euro_symbol"
+
+                />
 
             </LinearLayout>
 
@@ -73,21 +76,22 @@
                 <TextView android:layout_width="wrap_content"
                           android:textSize="18sp"
                           android:layout_height="wrap_content"
-                          android:text="hello"
-                          tools:text="hello"/>
+                          android:id="@+id/convertedPrice"
+                />
 
                 <TextView android:layout_width="wrap_content"
                           android:textSize="18sp"
                           android:layout_height="wrap_content"
-                          android:text="EURO"
+                          android:id="@+id/convertedSymbol"
                           tools:text="EURO"/>
 
             </LinearLayout>
 
             <ImageView android:layout_width="30dp" android:layout_height="30dp"
                        android:layout_alignParentRight="true"
+                       android:id="@+id/convertedFlag"
+                       android:scaleType="fitXY"
                        android:layout_centerVertical="true"/>
-
 
         </RelativeLayout>
 
@@ -154,7 +158,7 @@
     <com.github.mikephil.charting.charts.LineChart android:layout_width="match_parent"
                                                    android:layout_height="0dp" android:id="@+id/linegraph"
                                                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-                                                   android:layout_marginBottom="8dp"
+                                                   android:layout_margin="18dp"
                                                    app:layout_constraintBottom_toBottomOf="parent"/>
 
 

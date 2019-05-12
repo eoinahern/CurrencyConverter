@@ -1,5 +1,7 @@
 package ie.eoinahern.currencyconverter.data.repository.graph
 
+
+import ie.eoinahern.currencyconverter.data.model.GraphNestedMap
 import ie.eoinahern.currencyconverter.data.model.mapper.GraphDataMapper
 import ie.eoinahern.currencyconverter.data.network.MyApi
 import ie.eoinahern.currencyconverter.tools.DateUtil
@@ -19,12 +21,12 @@ class GraphNetworkDataSource(
      * this would mean less calls to backend so we can do this
      */
 
-    override fun getList(symbol: String): Map<String, Map<String, Double>> {
+    override fun getList(symbols: String): GraphNestedMap {
 
         val datesMap = dateUtil.getLatestDateRanget()
         val result = myApi.getTimeSeries(
             datesMap[SIX_MONTH_KEY] ?: "",
-            datesMap[NOW_KEY] ?: "", listOf(symbol)
+            datesMap[NOW_KEY] ?: "", listOf(symbols)
         ).execute()
         val body = result.body()
 

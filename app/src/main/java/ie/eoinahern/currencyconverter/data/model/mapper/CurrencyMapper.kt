@@ -13,7 +13,7 @@ object CurrencyMapper {
     private val formatter: NumberFormat by lazy {
         NumberFormat.getInstance(Locale.getDefault()).apply {
             minimumFractionDigits = 2
-            maximumFractionDigits = 6
+            maximumFractionDigits = 4
         }
     }
 

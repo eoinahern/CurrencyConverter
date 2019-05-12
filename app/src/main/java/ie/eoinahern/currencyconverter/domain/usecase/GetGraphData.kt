@@ -1,5 +1,6 @@
 package ie.eoinahern.currencyconverter.domain.usecase
 
+import ie.eoinahern.currencyconverter.data.model.GraphNestedMap
 import ie.eoinahern.currencyconverter.data.repository.graph.GraphDataRepositoryImpl
 import ie.eoinahern.currencyconverter.domain.BaseUsecase
 import ie.eoinahern.currencyconverter.domain.exception.Failure
@@ -8,9 +9,9 @@ import javax.inject.Inject
 
 
 class GetGraphData @Inject constructor(private val repo: GraphDataRepositoryImpl) :
-    BaseUsecase<String, Map<String, Map<String, Double>>>() {
+    BaseUsecase<String,  GraphNestedMap>() {
 
-    override suspend fun executeUsecase(p: String): Either<Failure, Map<String, Map<String, Double>>> {
+    override suspend fun executeUsecase(p: String): Either<Failure,  GraphNestedMap> {
         return repo.getGraphData(p)
     }
 }

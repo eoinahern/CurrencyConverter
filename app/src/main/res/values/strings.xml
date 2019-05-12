@@ -6,4 +6,7 @@
     <string name="oneWeekTxt">1W</string>
     <string name="oneMonthTxt">1M</string>
     <string name="sixMonthTxt">6M</string>
+    <string name="price_txt">Price</string>
+    <string name="one_euro">1.00</string>
+    <string name="euro_symbol">EUR</string>
 </resources>
