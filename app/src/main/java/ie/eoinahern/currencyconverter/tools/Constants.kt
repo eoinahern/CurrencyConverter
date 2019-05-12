@@ -12,3 +12,12 @@ const val SAVED_DATE = "date_saved"
 const val EURO_KEY = "EUR"
 const val EMPTY_STRING = ""
 const val CURRENCY_ITEM = "currency_item"
+
+
+const val NOW_KEY = "NOW"
+const val ONE_MONTH_KEY = "1M"
+const val ONE_WEEK_KEY = "1W"
+const val TWOFOUR_HOUR_KEY = "24H"
+const val SIX_MONTH_KEY = "6M"
+
+

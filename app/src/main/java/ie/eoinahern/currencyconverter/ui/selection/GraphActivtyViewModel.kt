@@ -13,23 +13,17 @@ import javax.inject.Inject
 
 class GraphActivtyViewModel @Inject constructor(private val getGraph: GetGraphData) : BaseViewModel() {
 
-    private val graphData: MutableLiveData<Map<String, Double>> = MutableLiveData()
+    private val graphData: MutableLiveData<Map<String, Map<String, Double>>> = MutableLiveData()
 
     private val job = Job()
     private val dispatcher = Dispatchers.Main
     private val scope = CoroutineScope(job + dispatcher)
 
     fun getGraphData() {
-
-        val now = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)
-        val previous = LocalDate.now().minusMonths(6)
-            .format(DateTimeFormatter.ISO_LOCAL_DATE)
-
-        getGraph(Triple(previous, now, "EUR"), scope) { it.either(::onError, ::onResult) }
+        getGraph("EUR", scope) { it.either(::onError, ::onResult) }
     }
 
-
-    fun onResult(map: Map<String, Double>) {
+    fun onResult(map: Map<String, Map<String, Double>>) {
         graphData.postValue(map)
     }
 
