@@ -4,7 +4,6 @@ import com.github.mikephil.charting.data.Entry
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-
 typealias GraphNestedMap = Map<String, List<Entry>>
 
 @JsonClass(generateAdapter = true)
