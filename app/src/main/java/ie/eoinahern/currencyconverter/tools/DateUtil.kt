@@ -2,6 +2,7 @@ package ie.eoinahern.currencyconverter.tools
 
 
 import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -21,5 +22,11 @@ class DateUtil @Inject constructor() {
         dateRanges[SIX_MONTH_KEY] = LocalDate.now().minusMonths(6).format(formatter)
 
         return dateRanges
+    }
+
+    fun parseDataTimeString(dateTimeString: String): LocalDateTime = LocalDateTime.parse(dateTimeString)
+
+    fun checkSaveDateValid(dateTime: LocalDateTime, days: Long): Boolean {
+        return dateTime.plusDays(days).isAfter(LocalDateTime.now())
     }
 }

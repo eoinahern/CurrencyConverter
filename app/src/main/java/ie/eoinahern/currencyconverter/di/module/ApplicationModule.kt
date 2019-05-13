@@ -17,6 +17,8 @@ import ie.eoinahern.currencyconverter.tools.DATABASE_NAME
 import ie.eoinahern.currencyconverter.tools.FIXER_KEY
 import ie.eoinahern.currencyconverter.tools.FIXER_KEY_NAME
 import ie.eoinahern.currencyconverter.tools.FIXER_URL
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -83,4 +85,8 @@ class ApplicationModule {
         return Room.databaseBuilder(context, CurrencyDatabase::class.java, DATABASE_NAME)
             .build().currencyDAO()
     }
+
+    @Provides
+    @Singleton
+    fun dispatcher(): CoroutineDispatcher = Dispatchers.Main
 }

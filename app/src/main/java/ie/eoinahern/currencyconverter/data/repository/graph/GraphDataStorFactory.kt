@@ -7,6 +7,11 @@ import javax.inject.Inject
 
 class GraphDataStorFactory @Inject constructor(myApi: MyApi, dateUtil: DateUtil) {
 
+    /**
+     * could also implement cachingData source here.
+     * example in other repository.
+     */
+
     private val dataSource: GraphDataSource
 
     init {

@@ -23,6 +23,10 @@ android {
     androidExtensions {
         experimental = true
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -75,6 +79,11 @@ dependencies {
     implementation "com.jakewharton.threetenabp:threetenabp:$three_ten_version"
 
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
+
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
+
+    testImplementation "android.arch.core:core-testing:1.1.1"
 
 
 }

@@ -4,9 +4,10 @@ import ie.eoinahern.currencyconverter.data.database.CurrencyDAO
 import ie.eoinahern.currencyconverter.domain.exception.Failure
 import ie.eoinahern.currencyconverter.domain.model.DomainCurrency
 import ie.eoinahern.currencyconverter.tools.Either
+import javax.inject.Inject
 
 
-class CacheDataStore constructor(private val currencyDAO: CurrencyDAO) :
+class CacheDataStore @Inject constructor(private val currencyDAO: CurrencyDAO) :
     CurrencyDataStore {
 
     override
