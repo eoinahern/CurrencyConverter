@@ -24,13 +24,13 @@ object GraphDataMapper {
      */
 
     private fun getAllRequiredRanges(
-        sixmonthPriceRange: Map<String, Double>,
+        sixMonthPriceRange: Map<String, Double>,
         mapOfRequiredRangesMap: Map<String, String>
     ): GraphNestedMap {
 
         return mapOfRequiredRangesMap.map {
             val (requiredDateKey, startDate) = it
-            requiredDateKey to sixmonthPriceRange.filter { dateAndAmountEntry ->
+            requiredDateKey to sixMonthPriceRange.filter { dateAndAmountEntry ->
                 !LocalDate.parse(dateAndAmountEntry.key)
                     .isBefore(LocalDate.parse(startDate))
             }.map { priceRange ->

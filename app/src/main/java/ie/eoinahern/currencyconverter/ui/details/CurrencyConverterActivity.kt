@@ -11,10 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
 import ie.eoinahern.currencyconverter.R
+import ie.eoinahern.currencyconverter.domain.exception.Failure
 import ie.eoinahern.currencyconverter.domain.model.DomainCurrency
 import ie.eoinahern.currencyconverter.tools.CURRENCY_ITEM
 import ie.eoinahern.currencyconverter.tools.LoadingView
 import ie.eoinahern.currencyconverter.tools.ViewModelFactory
+import ie.eoinahern.currencyconverter.tools.extension.fail
+import ie.eoinahern.currencyconverter.tools.extension.observe
 import ie.eoinahern.currencyconverter.ui.base.BaseActivity
 import ie.eoinahern.currencyconverter.ui.selection.GraphActivity
 import kotlinx.android.synthetic.main.activity_currency_converter.*
@@ -38,17 +41,7 @@ class CurrencyConverterActivity : BaseActivity() {
 
         attachCurrencyList()
         viewModel.getCurrencyList()
-        observeCallState()
-        observeFailure()
-    }
-
-    private fun observeCallState() {
-        viewModel.observeData().observe(this, Observer<Pair<DomainCurrency, List<DomainCurrency>>> { currencyInfo ->
-            currencyAdapter.setList(currencyInfo.second)
-            setHeadElement(currencyInfo.first)
-            headerView.setOnClickListener { navigateNext(currencyInfo.first) }
-            loading.setState(LoadingView.State.GONE)
-        })
+        observeLiveData()
     }
 
     private fun setHeadElement(currency: DomainCurrency) {
@@ -58,14 +51,24 @@ class CurrencyConverterActivity : BaseActivity() {
         name.text = currency.name
     }
 
-    private fun observeFailure() {
-        viewModel.getFailureResult().observe(this, Observer {
-            loading.setState(LoadingView.State.FAILED)
-        })
+    private fun observeLiveData() {
+        fail(viewModel.getFailureResult(), ::onFailure)
+        observe(viewModel.observeData(), ::onResult)
+    }
+
+    private fun onFailure(failure: Failure) {
+        loading.setState(LoadingView.State.FAILED)
+    }
+
+    private fun onResult(data: Pair<DomainCurrency, List<DomainCurrency>>) {
+        currencyAdapter.setList(data.second)
+        setHeadElement(data.first)
+        headerView.setOnClickListener { navigateNext(data.first) }
+        loading.setState(LoadingView.State.GONE)
     }
 
     private fun attachCurrencyList() {
-        recyclerView.addItemDecoration(CurrencyItemDecoration(this, R.color.colorAccent, 3f, 3f))
+        recyclerView.addItemDecoration(CurrencyItemDecoration(this, R.color.colorPrimary, 1f, 10f))
         recyclerView.adapter = currencyAdapter
         currencyAdapter.clickListener = ::navigateNext
     }

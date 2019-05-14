@@ -72,6 +72,5 @@ class CurrencyConverterViewModelTest {
             currencyViewModel.getCurrencyList()
         }
 
-
     }
 }
