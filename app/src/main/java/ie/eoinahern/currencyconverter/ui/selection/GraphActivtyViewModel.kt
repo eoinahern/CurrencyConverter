@@ -42,7 +42,9 @@ class GraphActivtyViewModel @Inject constructor(
     }
 
     fun updateGraphData(key: String) {
-        graphData.onNext(requireNotNull(allGraphedData[key]))
+
+        if (::allGraphedData.isInitialized)
+            graphData.onNext(requireNotNull(allGraphedData[key]))
     }
 
     fun onError(failure: Failure) {

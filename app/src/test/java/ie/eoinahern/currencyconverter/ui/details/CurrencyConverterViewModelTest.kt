@@ -48,6 +48,13 @@ class CurrencyConverterViewModelTest {
         currencyViewModel = CurrencyConverterViewModel(mockUsecase, Dispatchers.Unconfined)
     }
 
+
+    /**
+     * test not executing observeForever block. need to
+     * Investigate issue further.
+     *
+     */
+
     @Test
     fun testGetCurrency() {
 

@@ -19,6 +19,7 @@ import ie.eoinahern.currencyconverter.tools.*
 import ie.eoinahern.currencyconverter.ui.base.BaseActivity
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_graph.*
+import kotlinx.android.synthetic.main.activity_graph.view.*
 import javax.inject.Inject
 
 class GraphActivity : BaseActivity() {
