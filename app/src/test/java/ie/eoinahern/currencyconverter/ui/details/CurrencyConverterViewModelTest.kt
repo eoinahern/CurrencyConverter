@@ -1,32 +1,22 @@
 package ie.eoinahern.currencyconverter.ui.details
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import ie.eoinahern.currencyconverter.domain.BaseUsecase
+import ie.eoinahern.currencyconverter.data.repository.currency.CurrencyRepositoryImpl
 import ie.eoinahern.currencyconverter.domain.model.DomainCurrency
 import ie.eoinahern.currencyconverter.domain.usecase.GetCurrency
 import ie.eoinahern.currencyconverter.tools.Either
-import kotlinx.coroutines.CoroutineScope
-import com.nhaarman.mockitokotlin2.eq
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.given
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert
-import org.junit.Assert.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.*
-import org.mockito.BDDMockito.given
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 
 
 @RunWith(MockitoJUnitRunner::class)
@@ -39,13 +29,19 @@ class CurrencyConverterViewModelTest {
 
     private lateinit var currencyViewModel: CurrencyConverterViewModel
 
-    @Mock
-    private lateinit var mockUsecase: GetCurrency
 
+    private lateinit var mockGetCurrency: GetCurrency
+
+    @Mock
+    private lateinit var mockRepo: CurrencyRepositoryImpl
+
+    @ExperimentalCoroutinesApi
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        currencyViewModel = CurrencyConverterViewModel(mockUsecase, Dispatchers.Unconfined)
+
+        mockGetCurrency = GetCurrency(mockRepo)
+        currencyViewModel = CurrencyConverterViewModel(mockGetCurrency, TestCoroutineDispatcher())
     }
 
 
@@ -55,27 +51,29 @@ class CurrencyConverterViewModelTest {
      *
      */
 
+    @ExperimentalCoroutinesApi
     @Test
     fun testGetCurrency() {
+
 
         val item: Pair<DomainCurrency, List<DomainCurrency>> = Pair(
             DomainCurrency("USD", "1.00", 2, "US DOLLAR"),
             listOf(DomainCurrency("EUR", "12.00", 1, "EURO"))
         )
 
-        given {
-            runBlocking { mockUsecase.executeUsecase(any()) }
-        }.willReturn(Either.Right(item))
+        runBlockingTest {
+            Mockito.`when`(mockRepo.getData()).thenReturn(Either.Right(item))
+        }
 
 
         currencyViewModel.observeData().observeForever {
             val domain = it.first
-            assertEquals(domain.amount, "zzzzz")
-            assertEquals(domain.currencySymbol, "cccc")
+            assertEquals(domain.amount, "1.00")
+            assertEquals(domain.currencySymbol, "USD")
         }
 
 
-        runBlocking {
+        runBlockingTest {
             currencyViewModel.getCurrencyList()
         }
 

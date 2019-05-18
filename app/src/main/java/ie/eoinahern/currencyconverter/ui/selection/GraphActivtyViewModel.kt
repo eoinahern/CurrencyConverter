@@ -1,6 +1,8 @@
 package ie.eoinahern.currencyconverter.ui.selection
 
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.github.mikephil.charting.data.Entry
 import ie.eoinahern.currencyconverter.data.model.GraphNestedMap
 import ie.eoinahern.currencyconverter.domain.exception.Failure
@@ -10,7 +12,6 @@ import ie.eoinahern.currencyconverter.ui.base.BaseViewModel
 import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import javax.inject.Inject
 
@@ -24,6 +25,7 @@ class GraphActivtyViewModel @Inject constructor(
      */
 
     private val graphData: PublishSubject<List<Entry>> = PublishSubject.create()
+    private val graphItemData: LiveData<List<Entry>> = MutableLiveData()
 
     private val job = Job()
     private val scope = CoroutineScope(job + dispatcher)
