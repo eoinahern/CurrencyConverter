@@ -9,6 +9,7 @@ import ie.eoinahern.currencyconverter.domain.exception.Failure
 import ie.eoinahern.currencyconverter.domain.usecase.GetGraphData
 import ie.eoinahern.currencyconverter.tools.TWOFOUR_HOUR_KEY
 import ie.eoinahern.currencyconverter.ui.base.BaseViewModel
+import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -24,8 +25,7 @@ class GraphActivtyViewModel @Inject constructor(
      * for updating the graphData.
      */
 
-    private val graphData: PublishSubject<List<Entry>> = PublishSubject.create()
-    private val graphItemData: LiveData<List<Entry>> = MutableLiveData()
+    private val graphData: BehaviorSubject<List<Entry>> = BehaviorSubject.create()
 
     private val job = Job()
     private val scope = CoroutineScope(job + dispatcher)
@@ -33,10 +33,10 @@ class GraphActivtyViewModel @Inject constructor(
     private lateinit var allGraphedData: GraphNestedMap
 
     fun getGraphData(symbol: String) {
-        getGraph(symbol, scope) { it.either(::onError, ::onResult) }
+        getGraph(symbol, scope) { it.either(::onError, this::onResult) }
     }
 
-    fun getGraphData(): PublishSubject<List<Entry>> = graphData
+    fun getGraphData(): BehaviorSubject<List<Entry>> = graphData
 
     fun onResult(map: GraphNestedMap) {
         allGraphedData = map

@@ -39,7 +39,6 @@ class CurrencyConverterViewModelTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-
         mockGetCurrency = GetCurrency(mockRepo)
         currencyViewModel = CurrencyConverterViewModel(mockGetCurrency, TestCoroutineDispatcher())
     }
@@ -48,13 +47,11 @@ class CurrencyConverterViewModelTest {
     /**
      * test not executing observeForever block. need to
      * Investigate issue further.
-     *
      */
 
     @ExperimentalCoroutinesApi
     @Test
     fun testGetCurrency() {
-
 
         val item: Pair<DomainCurrency, List<DomainCurrency>> = Pair(
             DomainCurrency("USD", "1.00", 2, "US DOLLAR"),
@@ -71,6 +68,7 @@ class CurrencyConverterViewModelTest {
             assertEquals(domain.amount, "1.00")
             assertEquals(domain.currencySymbol, "USD")
         }
+
 
 
         runBlockingTest {
